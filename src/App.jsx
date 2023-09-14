@@ -27,7 +27,7 @@ function CreateNewNote() {
 function UpdateNote(text) {
    setNotes(prevNotes => prevNotes.map(prevNotes =>{
     return prevNotes.id === currentNoteId ? 
-    {...prevNotes, body : text} : prevNotes
+    {...prevNotes, body:text} : prevNotes
    }
     ))
 }
@@ -80,10 +80,3 @@ export default App
 
 
 
-/**
- * <Editor />
- * value={props.value}
-      onChange={props.setValue}
-      selectedTab={props.selectedTab}
-      onTabChange={props.setSelectedTab}
- */
