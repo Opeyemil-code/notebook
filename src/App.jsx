@@ -23,12 +23,29 @@ function CreateNewNote() {
    setCurrentNoteId(newNote.id)
 }
 
+
+function UpdateNote(text) {
+   setNotes(prevNotes => prevNotes.map(prevNotes =>{
+    return prevNotes.id === currentNoteId ? 
+    {...prevNotes, body : text} : prevNotes
+   }
+    ))
+}
+
+
+function findCurrentNote(params) {
+  return notes.find(note => {
+    return note.id === currentNoteId
+  }) || notes[0]
+}
+
+
   return (
-    <main className=''>
+    <main className='bg-blue-90'>
     {
       notes.length > 0 ?
       <Split
-    sizes={[25,60]}
+    sizes={[20,60]}
     direction='horizontal'
     className='split flex '
     >
@@ -37,13 +54,15 @@ function CreateNewNote() {
       notes={notes}
       setCurrentNoteId={setCurrentNoteId}
       newNote={CreateNewNote}
+      currentNote={findCurrentNote()}
       />
 
-      <Editor 
-      value={props.value}
-      onChange={props.setValue}
-      selectedTab={props.selectedTab}
-      onTabChange={props.setSelectedTab}/>
+      {
+         currentNoteId && notes.length > 0 &&
+        <Editor 
+        currentNote={findCurrentNote()}
+        UpdateNote={UpdateNote}/>
+      }
       
     </Split> : 
 
